@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import { Chains, Assets, Asset, Chain } from "@chainflip/sdk/swap";
+import { Chains, Assets, Asset, Chain, chainContractIds, assetContractIds } from "@chainflip/sdk/swap";
 import * as dotenv from "dotenv";
 
 import vaultAbi from "./chainflipVault.json";
@@ -9,22 +9,8 @@ dotenv.config();
 
 const provider = new ethers.providers.JsonRpcProvider(process.env.goerliRpc);
 const signer = new ethers.Wallet(process.env.privateKey as string, provider);
-const vaultAddress = "0xe781866455c5ef1f791975512f7e27814dc200e1";
+const vaultAddress = "0xAfD0C34E6d25F707d931F8b7EE9cf0Ff52160A46";
 const vaultContract = new ethers.utils.Interface(vaultAbi);
-
-const assetContractIds: Record<Asset, number> = {
-  [Assets.ETH]: 1,
-  [Assets.FLIP]: 2,
-  [Assets.USDC]: 3,
-  [Assets.DOT]: 4,
-  [Assets.BTC]: 5
-};
-
-const chainContractIds: Record<Chain, number> = {
-  [Chains.Ethereum]: 1,
-  [Chains.Polkadot]: 2,
-  [Chains.Bitcoin]: 3
-};
 
 const tokenAddresses: Record<Asset, string> = {
   [Assets.USDC]: "0x07865c6E87B9F70255377e024ace6630C1Eaa37F",
@@ -34,7 +20,7 @@ const tokenAddresses: Record<Asset, string> = {
   [Assets.ETH]: ""
 };
 
-type Params = {
+export type Params = {
   amount: string;
   srcChain: Chain;
   srcAsset: Asset;
@@ -97,29 +83,29 @@ const approveToken = async (params: Params) => {
 (async () => {
   try {
     const isNative = process.argv[2] === "true";
-    console.log(isNative)
+
     let params = {
       destChain: Chains.Bitcoin,
       destAsset: Assets.BTC,
-      destAddress: "tb1qw2c3lxufxqe2x9s4rdzh65tpf4d7fssjgh8nv6"
+      destAddress: "n4VQ5YdHf7hLQ2gWQYYrcxoE5B7nWuDFNF"
     } as Params;
 
     if (isNative) {
-      params = {
-        ...params,
-        amount: ethers.utils.parseUnits("0.01", 6).toString(),
-        srcChain: Chains.Ethereum,
-        srcAsset: Assets.USDC,
-      }
-    } else {
       params = {
         ...params,
         amount: ethers.utils.parseUnits("0.01", 18).toString(),
         srcChain: Chains.Ethereum,
         srcAsset: Assets.ETH,
       }
+    } else {
+      params = {
+        ...params,
+        amount: ethers.utils.parseUnits("0.01", 6).toString(),
+        srcChain: Chains.Ethereum,
+        srcAsset: Assets.USDC,
+      }
     }
-
+  
     if (isNativeSwap(params)) {
       await swapNative(params);
     } else {

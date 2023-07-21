@@ -10,10 +10,10 @@
     axios "^0.27.2"
     ethers "^5.7.1"
 
-"@chainflip/sdk@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@chainflip/sdk/-/sdk-0.1.0.tgz#7b92ea745e9bdb64331f97cf1dbdf7f70bbdaea9"
-  integrity sha512-Z+/0loS9FW6ak+uD5v3ihiilRceQa44Z5V361O54orl/glYlgrspCMnVRPu3TJgbyjS7YOMgX2pDhm8CW3VqWg==
+"@chainflip/sdk@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@chainflip/sdk/-/sdk-0.1.1.tgz#c522a117543e35eb4ec5c18a3e00022aced06890"
+  integrity sha512-jDy/ZCec5kTVKSAzLPZBsAMCdH6uzmrl8FklIFJ9ZGtI+qnWHjnhd+QkEC/WJe2kppuCHQcK6ROew+qRO9U1zg==
   dependencies:
     "@polkadot/util" "^12.0.1"
     "@polkadot/util-crypto" "^12.0.1"
